@@ -3,6 +3,7 @@ GENERATED_FILES=@GENERATED_FILES@
 
 bup_make=@bup_make@
 bup_python=@bup_python@
+bup_dist_python=@bup_dist_python@
 bup_python_majver=@bup_python_majver@
 
 bup_have_libacl=@bup_have_libacl@

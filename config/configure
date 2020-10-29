@@ -78,6 +78,12 @@ else
            "$("$bup_python" -c 'import sys; print(sys.version_info[0])')"
 fi
 
+bup_dist_python="${DIST_PYTHON}"
+if test -z "$bup_dist_python"; then
+    bup_dist_python="$bup_python"
+fi
+AC_SUB bup_dist_python "$bup_dist_python"
+
 bup_git="$(bup_find_prog git '')"
 if test -z "$bup_git"; then
     AC_FAIL "ERROR: unable to find git"
@@ -292,6 +298,7 @@ if test -e config.var; then rm -r config.var; fi
 mkdir -p config.var
 echo -n "$MAKE" > config.var/bup-make
 echo -n "$bup_python" > config.var/bup-python
+echo -n "$bup_dist_python" > config.var/bup-dist-python
 
 if test -e bin; then rm -r bin; fi
 mkdir -p bin
@@ -304,6 +311,16 @@ found: git (%q, ($("$bup_git" --version))
        "$bup_python" \
        "$bup_git" \
        1>&5
+
+if [ "$bup_python" != "$bup_dist_python" ]; then
+    printf "  (using %q as installed python path)
+" \
+    "$bup_dist_python" 1>&5
+else 
+    printf "  (install python path identical to build path)
+" 1>&5
+
+fi
 
 summarize()
 {

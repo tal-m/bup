@@ -15,7 +15,7 @@ else:
 
 src_path, dest_path = sys.argv[1:]
 
-with open(b'config/config.var/bup-python', 'rb') as src:
+with open(b'config/config.var/bup-dist-python', 'rb') as src:
     python = src.read()
 
 with NamedTemporaryFile() as tmp:
