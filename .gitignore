@@ -10,6 +10,7 @@ memtest
 *.pyc
 *.tmp
 *.tmp.meta
+*.snap
 /build
 /config/bin/
 /lib/bup/checkout_info.py
