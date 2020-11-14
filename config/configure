@@ -89,6 +89,13 @@ if test -z "$bup_git"; then
     AC_FAIL "ERROR: unable to find git"
 fi
 
+# Default path (for snaps, this will differ from the standard path)
+bup_dist_path="${DIST_PATH}"
+if test -z "$bup_dist_path"; then
+    bup_dist_path=""
+fi
+AC_SUB bup_dist_path "$bup_dist_path"
+
 # For stat.
 AC_CHECK_HEADERS sys/stat.h
 AC_CHECK_HEADERS sys/types.h
@@ -299,6 +306,7 @@ mkdir -p config.var
 echo -n "$MAKE" > config.var/bup-make
 echo -n "$bup_python" > config.var/bup-python
 echo -n "$bup_dist_python" > config.var/bup-dist-python
+echo -n "$bup_dist_path" > config.var/bup-dist-path
 
 if test -e bin; then rm -r bin; fi
 mkdir -p bin
@@ -320,6 +328,12 @@ else
     printf "  (install python path identical to build path)
 " 1>&5
 
+fi
+
+if [ "$bup_dist_path" != "" ]; then
+    printf "  (using %q as default path)
+" \
+    "$bup_dist_path" 1>&5
 fi
 
 summarize()

@@ -15,6 +15,12 @@ else:
 
 src_path, dest_path = sys.argv[1:]
 
+try:
+    with open(b'config/config.var/bup-dist-path', 'rb') as src:
+        dist_path = src.read().strip()
+except:
+    dist_path = ""
+
 with open(b'config/config.var/bup-dist-python', 'rb') as src:
     python = src.read()
 
@@ -29,6 +35,8 @@ with NamedTemporaryFile() as tmp:
         for line in src:
             if line == b'"""\n':
                 break
+        if dist_path != "":
+            tmp.write(b'export PATH="%s:${PATH}"\n' % dist_path)
         tmp.write(b'exec %s "$0"\n' % python)
         tmp.write(b'"""\n')
         for line in src:

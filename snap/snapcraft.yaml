@@ -20,6 +20,8 @@ parts:
      - PYTHON: '/usr/bin/python3'
      - DIST_PYTHON: |-
              \"\${SNAP}\"/usr/bin/python3
+     - DIST_PATH: |-
+             \${SNAP}/usr/local/sbin:\${SNAP}/usr/local/bin:\${SNAP}/usr/sbin:\${SNAP}/usr/bin:\${SNAP}/sbin:\${SNAP}/bin
     build-packages: 
      - python3
      - build-essential
@@ -52,3 +54,4 @@ parts:
      - libacl1
      - acl
      - attr
+     - par2
